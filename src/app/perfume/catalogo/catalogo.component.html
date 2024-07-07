@@ -1,0 +1,51 @@
+<div class="m-2 p-2">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h2>Catálogo de Perfumes</h2>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Buscar por nombre" [(ngModel)]="txtBuscar" (input)="buscarPerfumes()" aria-label="Buscar" aria-describedby="button-addon2">
+            <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="buscarPerfumes()">Buscar</button>
+          </div>
+        </div>
+        <div class="col">
+          <div class="btn-group" role="group" aria-label="Categorías">
+            <button type="button" class="btn btn-outline-primary" (click)="filtrarCategoria(0)">Todos</button>
+            <button type="button" class="btn btn-outline-primary" *ngFor="let categoria of categorias" (click)="filtrarCategoria(categoria.id)">
+              {{ categoria.nombre }}
+            </button>
+          </div>
+        </div>
+      </div>
+  
+      <div class="row mt-3" *ngIf="isResultLoaded">
+        <div class="col-md-4 mb-4" *ngFor="let perfume of filtradoPerfume">
+          <div class="card">
+            <img class="card-img-top" [src]="'/assets/img/perfume' + perfume.id + '.jpg'" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">{{ perfume.nombre }}</h5>
+              <p class="card-text">{{ perfume.descripcion }}</p>
+              <p class="card-text">Precio: {{ perfume.precio }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="row mt-3" *ngIf="!isResultLoaded">
+        <div class="col">
+          <p>Cargando perfumes...</p>
+        </div>
+      </div>
+  
+      <div class="row mt-3" *ngIf="isResultLoaded && filtradoPerfume.length === 0">
+        <div class="col">
+          <p>No se encontraron perfumes para esta categoría.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
